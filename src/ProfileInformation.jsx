@@ -1,3 +1,5 @@
+import { formatPhoneNumber } from "./utils/transformations";
+
 export const InfoRow = ({ label, value }) => {
   return (
     <div>
@@ -8,8 +10,8 @@ export const InfoRow = ({ label, value }) => {
     </div>
   );
 };
-export const ProfileInformation = ({ userData }) => {
-  if (!userData) {
+export const ProfileInformation = ({ userData, isSubmitted }) => {
+  if (!isSubmitted) {
     return (
       <>
         <u>
@@ -22,7 +24,8 @@ export const ProfileInformation = ({ userData }) => {
     );
   }
   // eslint-disable-next-line no-unused-vars
-  const { email, firstName, lastName, phone: _phone, city } = userData;
+  const { email, firstName, lastName, phone, city } = userData;
+  const phoneNumber = phone;
   return (
     <>
       <u>
@@ -34,8 +37,10 @@ export const ProfileInformation = ({ userData }) => {
         <InfoRow label="Last Name" value={lastName} />
         <InfoRow label="City" value={city} />
         {/* You will need to format the string "nnnnnnn" as "nn-nn-nn-n" */}
-        <InfoRow label="Phone" value={"12-34-56-7"} />
+        <InfoRow label="Phone" value={formatPhoneNumber(phoneNumber)} />
       </div>
     </>
   );
 };
+
+// phone: _phone
